@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class liftdoorAnimation_m : MonoBehaviour
+public class pinkKeyScript_m : MonoBehaviour
 {
     public GameObject UI_interact_m;
-    public Animator liftAnim;
-    public Animator liftdoorAnim;
+    public GameObject key;
+    public GameObject keyPlayer;
+    public GameObject keyImage;
     private Button interactButton;
-    public bool toggle = true;
-    public AudioSource liftdoorOpenSound;
-    public AudioSource liftdoorCloseSound;
-    public bool interactable;
-    private float c = 0;
+    public bool toggle = true, interactable;
 
     void Start()
     {
@@ -36,7 +33,6 @@ public class liftdoorAnimation_m : MonoBehaviour
             interactable = true;
         }
     }
-
     void OnTriggerExit(Collider other)
     {
         if (Application.isMobilePlatform && other.CompareTag("Player"))
@@ -45,26 +41,15 @@ public class liftdoorAnimation_m : MonoBehaviour
             interactable = false;
         }
     }
-
     void OnInteractButtonClicked()
     {
         if (interactable)
         {
             toggle = !toggle;
-            c++;
-            if (c % 2 != 0)
-            {
-                liftdoorOpenSound.Play();
-            }
-            else
-            {
-                liftdoorCloseSound.Play();
-                liftAnim.ResetTrigger("interact");
-                liftAnim.SetTrigger("interact");
-            }
+            key.SetActive(false);
+            UI_interact_m.SetActive(false);
 
-            liftdoorAnim.ResetTrigger("interact");
-            liftdoorAnim.SetTrigger("interact");
+            InventoryManager.Instance.AddItem(keyPlayer, keyImage);
         }
     }
 }

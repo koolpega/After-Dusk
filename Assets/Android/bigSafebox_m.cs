@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class keyScript_m : MonoBehaviour
+public class bigSafebox_m : MonoBehaviour
 {
     public GameObject UI_interact_m;
     public GameObject key;
     public GameObject keyPlayer;
     public GameObject keyImage;
-    private Button interactButton;
     public bool toggle = true, interactable;
+    private Button interactButton;
+    public Animator safeboxAnim;
+    public AudioSource bgm;
+    public AudioSource genshinImpactBGM;
 
     void Start()
     {
@@ -27,7 +30,7 @@ public class keyScript_m : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (Application.isMobilePlatform && other.CompareTag("Player"))
+        if (Application.isMobilePlatform && other.CompareTag("pink-key"))
         {
             UI_interact_m.SetActive(true);
             interactable = true;
@@ -35,7 +38,7 @@ public class keyScript_m : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        if (Application.isMobilePlatform && other.CompareTag("Player"))
+        if (Application.isMobilePlatform && other.CompareTag("pink-key"))
         {
             UI_interact_m.SetActive(false);
             interactable = false;
@@ -43,13 +46,24 @@ public class keyScript_m : MonoBehaviour
     }
     void OnInteractButtonClicked()
     {
-        if (interactable)
+        if (interactable && toggle)
         {
             toggle = !toggle;
+            safeboxAnim.ResetTrigger("interact");
+            safeboxAnim.SetTrigger("interact");
+            InventoryManager.Instance.RemoveItemByName(keyPlayer.name);
             key.SetActive(false);
             UI_interact_m.SetActive(false);
-
-            InventoryManager.Instance.AddItem(keyPlayer, keyImage);
+            bgm.Stop();
+            genshinImpactBGM.Play();
+            StartCoroutine(Timer());
+            Debug.Log("big safe box m");
         }
+    }
+
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(99);
+        bgm.Play();
     }
 }

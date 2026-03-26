@@ -49,8 +49,7 @@ public class safebox_m : MonoBehaviour
             toggle = !toggle;
             safeboxAnim.ResetTrigger("interact");
             safeboxAnim.SetTrigger("interact");
-            keyPlayer.SetActive(false);
-            keyImage.SetActive(false);
+            InventoryManager.Instance.RemoveItemByName(keyPlayer.name);
             key.SetActive(false);
             UI_interact_m.SetActive(false);
         }
