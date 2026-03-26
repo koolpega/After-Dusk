@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class equipKey : MonoBehaviour
+public class equipPinkKey : MonoBehaviour
 {
     public void OnButtonClick()
     {
@@ -8,7 +8,7 @@ public class equipKey : MonoBehaviour
         {
             GameObject item = InventoryManager.Instance.heldItems[i];
 
-            if (item.name.Equals("key"))
+            if (item.name.Equals("pink-key"))
             {
                 InventoryManager.Instance.EquipItem(i);
                 return;
