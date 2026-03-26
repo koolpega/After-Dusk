@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class safebox : MonoBehaviour
+public class bigSafebox : MonoBehaviour
 {
     public GameObject UI_interact;
     public GameObject key;
@@ -10,10 +10,12 @@ public class safebox : MonoBehaviour
     public GameObject keyImage;
     public bool toggle = true, interactable;
     public Animator safeboxAnim;
+    public AudioSource bgm;
+    public AudioSource genshinImpactBGM;
 
     void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("safekey"))
+        if (other.CompareTag("pink-key"))
         {
             UI_interact.SetActive(true);
             interactable = true;
@@ -21,7 +23,7 @@ public class safebox : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("safekey"))
+        if (other.CompareTag("pink-key"))
         {
             UI_interact.SetActive(false);
             interactable = false;
@@ -29,7 +31,7 @@ public class safebox : MonoBehaviour
     }
     void Update()
     {
-        if (interactable == true)
+        if (interactable && toggle)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -41,7 +43,16 @@ public class safebox : MonoBehaviour
                 keyPlayer.SetActive(false);
                 keyImage.SetActive(false);
                 UI_interact.SetActive(false);
+                bgm.Stop();
+                genshinImpactBGM.Play();
+                StartCoroutine(Timer());
             }
         }
+    }
+
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(99);
+        bgm.Play();
     }
 }

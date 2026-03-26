@@ -33,10 +33,10 @@ public class keyScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 toggle = !toggle;
-                keyPlayer.SetActive(true);
-                keyImage.SetActive(true);
                 key.SetActive(false);
                 UI_interact.SetActive(false);
+
+                InventoryManager.Instance.AddItem(keyPlayer, keyImage);
             }
         }
     }

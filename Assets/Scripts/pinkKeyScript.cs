@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class liftdoorAnimation : MonoBehaviour
+public class pinkKeyScript : MonoBehaviour
 {
     public GameObject UI_interact;
+    public GameObject key;
+    public GameObject keyPlayer;
+    public GameObject keyImage;
     public bool toggle = true, interactable;
-    public AudioSource liftdoorOpenSound;
-    public AudioSource liftdoorCloseSound;
-    public Animator liftAnim;
-    public Animator liftdoorAnim;
-    private float c=0;
 
     void OnTriggerStay(Collider other)
     {
@@ -35,20 +33,10 @@ public class liftdoorAnimation : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 toggle = !toggle;
-                c++;
-                if (c % 2 != 0)
-                {
-                    liftdoorOpenSound.Play();
-                }
-                else
-                {
-                    liftdoorCloseSound.Play();
-                    liftAnim.ResetTrigger("interact");
-                    liftAnim.SetTrigger("interact");
-                }
+                key.SetActive(false);
+                UI_interact.SetActive(false);
 
-                liftdoorAnim.ResetTrigger("interact");
-                liftdoorAnim.SetTrigger("interact");
+                InventoryManager.Instance.AddItem(keyPlayer, keyImage);
             }
         }
     }
