@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class keyScript_web : MonoBehaviour
+public class pinkKeyScript_web : MonoBehaviour
 {
     public GameObject UI_interact_m;
     public GameObject key;

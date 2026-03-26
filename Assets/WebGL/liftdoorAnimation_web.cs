@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class liftdoorAnimation_web : MonoBehaviour
 {
     public GameObject UI_interact_m;
+    public Animator liftAnim;
     public Animator liftdoorAnim;
     private Button interactButton;
     public bool toggle = true;
@@ -55,6 +56,8 @@ public class liftdoorAnimation_web : MonoBehaviour
             else
             {
                 liftdoorCloseSound.Play();
+                liftAnim.ResetTrigger("interact");
+                liftAnim.SetTrigger("interact");
             }
 
             liftdoorAnim.ResetTrigger("interact");
